@@ -2,28 +2,66 @@ package com.pack.dto;
 
 import com.pack.entity.UserEntity;
 
-import javax.validation.constraints.NotNull;
-
 public class UserDto extends UserEntity {
 
-    private String userId;
+    private Long _id;
     private String firstName;
     private String lastName;
-    private int mobileNo;
+    private String mobileNo;
     private String address;
     private double grossSalary;
     private boolean active;
     private String password;
+    private String username;
+    private int age;
 
-    @Override
-    public String getUserId() {
-        return userId;
+    public UserDto() {
+    }
+
+
+
+    public UserDto(Long _id, String firstName, String lastName, String mobileNo, String address, double grossSalary, boolean active, String password, String username, int age, String userId1, String firstName1, String lastName1, String mobileNo1, String address1, double grossSalary1, boolean active1, String password1, String username1, int age1) {
+        super(_id, firstName, lastName, mobileNo, address, grossSalary, active, password, username, age);
+        this._id = _id;
+        this.firstName = firstName1;
+        this.lastName = lastName1;
+        this.mobileNo = mobileNo1;
+        this.address = address1;
+        this.grossSalary = grossSalary1;
+        this.active = active1;
+        this.password = password1;
+        this.username = username1;
+        this.age = age1;
     }
 
     @Override
-    @NotNull
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username=username;
+    }
+
+    @Override
+    public Long get_id() {
+        return _id;
+    }
+
+    @Override
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
     @Override
@@ -32,7 +70,6 @@ public class UserDto extends UserEntity {
     }
 
     @Override
-    @NotNull
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -43,19 +80,17 @@ public class UserDto extends UserEntity {
     }
 
     @Override
-    @NotNull
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     @Override
-    public int getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
     @Override
-    @NotNull
-    public void setMobileNo(int mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
@@ -65,7 +100,6 @@ public class UserDto extends UserEntity {
     }
 
     @Override
-    @NotNull
     public void setAddress(String address) {
         this.address = address;
     }

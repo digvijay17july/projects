@@ -1,4 +1,4 @@
-package com.pack.service;
+package pack.service;
 
 public interface IncomeTaxService {
     Double educationCessPercent = 1.0;
@@ -34,7 +34,7 @@ public interface IncomeTaxService {
             return grossIncome <= seniorCitizenSalarySlabs[0] ?  calculateTax(netIncome,0.0,seniorCitizenSalarySlabs) : grossIncome <= seniorCitizenSalarySlabs[1] ? calculateTax(netIncome,5.0,seniorCitizenSalarySlabs): grossIncome <= seniorCitizenSalarySlabs[2] ? calculateTax(netIncome,20.0,seniorCitizenSalarySlabs) :calculateTax(netIncome,20.0,seniorCitizenSalarySlabs) ;
         }
     }
-    default double calculateTax( final double netIncome,final double taxPercent, final Double taxSlabs[])
+    default double calculateTax(final double netIncome, final double taxPercent, final Double taxSlabs[])
     {
         double totalTax=0.0;
         if(taxPercent==5.0)
@@ -42,7 +42,7 @@ public interface IncomeTaxService {
             totalTax=((netIncome-taxSlabs[0])*taxPercent)/100;
         }else if(taxPercent==20.0)
         {
-            totalTax=Math.abs((((netIncome-taxSlabs[0])*5.0)+((netIncome-taxSlabs[0]-taxSlabs[1])*20.0))/100);
+            totalTax=(((netIncome-taxSlabs[0])*5.0)+((netIncome-taxSlabs[0]-taxSlabs[1])*20.0))/100;
         }
         return totalTax;
     }

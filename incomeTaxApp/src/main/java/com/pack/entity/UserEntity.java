@@ -1,25 +1,46 @@
 package com.pack.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(indexName = "userIndex", type = "users")
+
+@Document(collection = "user")
 public class UserEntity {
     @Id
-    private String userId;
+    private Long _id;
     private String firstName;
     private String lastName;
-    private int mobileNo;
+    private String mobileNo;
     private String address;
     private double grossSalary;
     private boolean active;
     private String password;
+    private String username;
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public UserEntity() {
     }
 
-    public UserEntity(String userId, String firstName, String lastName, int mobileNo, String address, double grossSalary, boolean active, String password) {
-        this.userId = userId;
+    public UserEntity(Long _id, String firstName, String lastName, String mobileNo,
+                      String address, double grossSalary, boolean active, String password,
+                      String username, int age) {
+        this._id = _id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNo = mobileNo;
@@ -27,14 +48,16 @@ public class UserEntity {
         this.grossSalary = grossSalary;
         this.active = active;
         this.password = password;
+        this.username = username;
+        this.age = age;
     }
 
-    public String getUserId() {
-        return userId;
+    public Long get_id() {
+        return _id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
     public String getPassword() {
@@ -69,11 +92,11 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
-    public int getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(int mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
