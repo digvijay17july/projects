@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -24,17 +25,26 @@ public class PostServiceImpl implements PostService {
     public List<Map<UserEntity, String>> postData() {
         List<Map<UserEntity, String>> maps = new ArrayList<>();
         List<UserDto> userDtos = getUserList();
-        userDtos.stream().forEach(userDto -> {
-            ResponseEntity<UserDto> responseEntity = restTemplate.exchange("http://localhost:9191/api/v1/user/registerUser", HttpMethod.POST,
-                    new HttpEntity<>(userDto, new HttpHeaders()), UserDto.class);
-            maps.add((Map<UserEntity, String>) new HashMap<>().put(userDto, responseEntity.getStatusCode().toString()));
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        List<FutureTask> taskList = new ArrayList<FutureTask>();
+        Future future=new FutureTask<ResponseEntity<UserDto>>(new Callable<ResponseEntity<UserDto>>() {
+            @Override
+            public ResponseEntity<UserDto> call() throws Exception {
+                ResponseEntity<UserDto> responseEntity = restTemplate.exchange("http://localhost:9191/api/v1/user/registerUser", HttpMethod.POST,
+                        new HttpEntity<>(userDto, new HttpHeaders()), UserDto.class);
+
+                return null;
+            }
         });
+
+
         return maps;
     }
 
     private List<UserDto> getUserList() {
         List<UserDto> userDtoList = new ArrayList<UserDto>();
         UserDto userDto;
+
         for (int i = 0; i < 150000; i++) {
             userDto = new UserDto();
             userDto.setActive(true);
