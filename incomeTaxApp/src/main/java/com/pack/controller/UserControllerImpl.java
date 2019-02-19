@@ -13,13 +13,21 @@ import org.springframework.web.bind.annotation.*;
 public class UserControllerImpl implements UserController {
     @Autowired
     UserService userService;
+
+    static int i = 0;
+
     @Override
 
-    public ResponseEntity<UserDto> register(@RequestBody UserDto userDto)
-    {
-        userDto=userService.createUser(userDto);
-        System.out.println("***"+userDto.toString());
-        return new ResponseEntity<UserDto>(userDto, HttpStatus.CREATED);
+    public ResponseEntity<UserDto> register(@RequestBody UserDto userDto) {
+        userDto = userService.createUser(userDto);
+        System.out.println("***" + userDto.toString());
+        if (i < 15001) {
+            i++;
+            return new ResponseEntity<UserDto>(userDto, HttpStatus.CREATED);
+        } else {
+            i = 0;
+            return new ResponseEntity<UserDto>(userDto, HttpStatus.TOO_MANY_REQUESTS);
+        }
     }
 
     @Override
@@ -36,8 +44,9 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<UserDto> getDetails(UserDto userDto) {
         return null;
     }
+
     @RequestMapping(value = "/", produces = "application/json", method = RequestMethod.GET)
     String getDetail() {
-       return "hello";
+        return "hello";
     }
 }

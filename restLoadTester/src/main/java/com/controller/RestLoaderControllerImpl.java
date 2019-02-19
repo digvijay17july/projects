@@ -19,8 +19,8 @@ public class RestLoaderControllerImpl implements RestLoaderController {
     @Autowired
     PostService postService;
     @Override
-    public ResponseEntity< List<Map<UserEntity, String>>> load() {
+    public ResponseEntity<List<Map<UserEntity, String>>> load() {
 
-        return new ResponseEntity< List<Map<UserEntity, String>>>(postService.postData(),new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<List<Map<UserEntity, String>>> (postService.postData(),new HttpHeaders(), HttpStatus.OK);
     }
 }
