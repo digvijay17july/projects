@@ -18,6 +18,7 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<UserDto> register(@RequestBody UserDto userDto)
     {
         userDto=userService.createUser(userDto);
+        System.out.println("***"+userDto.toString());
         return new ResponseEntity<UserDto>(userDto, HttpStatus.CREATED);
     }
 

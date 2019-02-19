@@ -3,9 +3,6 @@ package com.service;
 import com.dto.UserDto;
 import com.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,26 +15,37 @@ import java.util.concurrent.*;
 
 @Service
 public class PostServiceImpl implements PostService {
-    @Autowired
-    RestTemplate restTemplate;
 
+@Autowired
+RestTemplate restTemplate;
     @Override
     public List<Map<UserEntity, String>> postData() {
         List<Map<UserEntity, String>> maps = new ArrayList<>();
         List<UserDto> userDtos = getUserList();
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        List<FutureTask> taskList = new ArrayList<FutureTask>();
-        Future future=new FutureTask<ResponseEntity<UserDto>>(new Callable<ResponseEntity<UserDto>>() {
-            @Override
-            public ResponseEntity<UserDto> call() throws Exception {
-                ResponseEntity<UserDto> responseEntity = restTemplate.exchange("http://localhost:9191/api/v1/user/registerUser", HttpMethod.POST,
-                        new HttpEntity<>(userDto, new HttpHeaders()), UserDto.class);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
+        ScheduledFuture future = null;
+        List<Future> taskList = new ArrayList<Future>();
 
-                return null;
+        for (UserDto userDto : userDtos) {
+            future=executor.schedule(new MultiUserRegiserServiceImpl(userDto,restTemplate), 1, TimeUnit.SECONDS);
+            taskList.add(future);
+        }
+        executor.shutdown();
+        ResponseEntity<UserDto> responseEntity=null;
+        Map tempMap=null;
+        for (Future futureValue : taskList
+        ) {
+            try {
+                responseEntity=(ResponseEntity<UserDto>)futureValue.get();
+                tempMap=new HashMap<>();
+                tempMap.put(responseEntity.getBody(),responseEntity.getStatusCode());
+                maps.add(tempMap);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-        });
-
-
+        }
         return maps;
     }
 
@@ -60,4 +68,6 @@ public class PostServiceImpl implements PostService {
         }
         return userDtoList;
     }
+
+
 }
