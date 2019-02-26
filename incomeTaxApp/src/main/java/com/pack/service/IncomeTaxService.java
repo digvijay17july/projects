@@ -4,7 +4,7 @@ public interface IncomeTaxService {
     Double educationCessPercent = 1.0;
     Double generalSalarySlabs[] = {250000.0, 500000.0, 1000000.0};
     Double seniorCitizenSalarySlabs[] = {300000.0, 500000.0, 1000000.0};
-    Double standardDeduction = 0.0;
+    Double standardDeduction = 50000.0;
     Double creditTax = 2500.0;
 
     enum Category {SENIOR_CITIZEN, GENERAL;}

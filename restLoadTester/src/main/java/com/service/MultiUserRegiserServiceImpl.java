@@ -5,10 +5,12 @@ import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class MultiUserRegiserServiceImpl implements MultiUserRegiserService {
     private RestTemplate restTemplate;
     private UserDto userDto;
-
+    static ReentrantLock reentrantLock=new ReentrantLock();
     public MultiUserRegiserServiceImpl(UserDto userDto, RestTemplate restTemplate) {
         this.userDto = userDto;
         this.restTemplate = restTemplate;
@@ -19,6 +21,7 @@ public class MultiUserRegiserServiceImpl implements MultiUserRegiserService {
 
     @Override
     public ResponseEntity<UserDto> call() throws Exception {
+
         ResponseEntity<UserDto> responseEntity = null;
         try {
             responseEntity = restTemplate.exchange("http://localhost:9191/api/v1/user/registerUser", HttpMethod.POST,
@@ -29,7 +32,6 @@ public class MultiUserRegiserServiceImpl implements MultiUserRegiserService {
             responseEntity = restTemplate.exchange("http://localhost:9191/api/v1/user/registerUser", HttpMethod.POST,
                     new HttpEntity<>(userDto, new HttpHeaders()), UserDto.class);
         }
-
         return responseEntity;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class Configurations {
 
+
     ToolConfiguration toolConfiguration;
 
     Configurations(ToolConfiguration toolConfiguration) {
