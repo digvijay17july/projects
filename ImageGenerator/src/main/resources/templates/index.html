@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat Room</title>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script th:inline="javascript">
+        var socket = new SockJS('/chat');
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function(message) {
+                var content = JSON.parse(JSON.parse(message.body).content);
+
+                var sender = JSON.parse(message.body).sender;
+
+                content.forEach(url=>{
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                img.width=100
+                img.height=100
+                img.src = url.url;
+
+                 var url_div = document.createTextNode(sender + ': ' );
+
+                  div.appendChild(url_div);
+                  div.appendChild(img);
+                   document.getElementById('messages').appendChild(div);
+                })
+
+
+
+
+            });
+        });
+        function sendMessage() {
+            var content = document.getElementById('content').value;
+            var sender = document.getElementById('sender').value;
+            var chatMessage = {
+                content: content,
+                sender: sender
+            };
+             var div = document.createElement('div');
+                var text = document.createTextNode(sender + ': ' + content);
+                div.appendChild(text);
+                document.getElementById('messages').appendChild(div);
+            stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
+            document.getElementById('content').value = '';
+        }
+
+    </script>
+</head>
+<body>
+<div id="messages"></div>
+<div>
+    <input type="text" id="sender" placeholder="Enter your name">
+    <input type="text" id="content" placeholder="Enter your message">
+    <button onclick="sendMessage()">Send</button>
+</div>
+</body>
+</html>

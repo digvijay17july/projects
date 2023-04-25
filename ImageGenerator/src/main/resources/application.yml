@@ -1,0 +1,5 @@
+chatGPT:
+  token: token
+  url: https://api.openai.com/v1/images/generations
+  defaultImageSize: "1024x1024"
+  defaultGeneratedImagesCount: 2
