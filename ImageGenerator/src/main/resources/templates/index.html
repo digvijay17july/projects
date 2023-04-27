@@ -17,15 +17,31 @@
                 content.forEach(url=>{
                 var div = document.createElement('div');
                 var img = document.createElement('img');
+                var a = document.createElement('a');
+                var link = document.createTextNode("Image Link \n");
                 img.width=100
                 img.height=100
                 img.src = url.url;
+                a.append('\n')
+                div.append('\n')
+                img.append('\n')
+                a.appendChild(link);
 
-                 var url_div = document.createTextNode(sender + ': ' );
+
+                a.title = "Image Link \n";
+
+                // Set the href property.
+                a.href = url.url;
+
+                 var url_div = document.createTextNode(sender + ': \n' );
 
                   div.appendChild(url_div);
+                  div.append('\n')
+                  div.appendChild(a);
+                  div.append('\n')
                   div.appendChild(img);
-                   document.getElementById('messages').appendChild(div);
+                  div.append('\n')
+                  document.getElementById('messages').appendChild(div).append('\n');
                 })
 
 
