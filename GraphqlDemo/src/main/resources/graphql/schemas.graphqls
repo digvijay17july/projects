@@ -1,0 +1,51 @@
+
+scalar UUID
+
+type Query {
+    getUser(userId: UUID): User
+    getAllUsers: [User]
+
+}
+
+
+type User {
+    id: UUID
+    username: String
+    address: Address
+    phoneNumber: PhoneNumber
+}
+
+input UserInput {
+    id: UUID
+    username: String
+    address: AddressInput
+    phoneNumber: PhoneNumberInput
+}
+
+
+type PhoneNumber {
+    id: ID
+    primaryPhoneNumber: String
+    secondaryPhoneNumber: [String]
+}
+input PhoneNumberInput {
+    id: ID
+    primaryPhoneNumber: String
+    secondaryPhoneNumber: [String]
+}
+type Address {
+    id: ID
+    primaryAddress: String
+    secondaryAddress: [String]
+}
+input AddressInput {
+    id: ID
+    primaryAddress: String
+    secondaryAddress: [String]
+}
+
+type  Mutation{
+    createUser(user: UserInput!):User
+    deleteUser(userId: UUID): Boolean
+    updateUser(user:UserInput):Boolean
+}

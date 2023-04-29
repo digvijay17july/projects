@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      settings.trace: false
+      settings.web-allow-others: false
+
+
+  graphql:
+    servlet:
+    # Sets if GraphQL servlet should be created and exposed. If not specified defaults to "true".
+      enabled: true
+    # Sets the path where GraphQL servlet will be exposed. If not specified defaults to "/graphql"
+      mapping: /graphql
+      cors-enabled: true
+    graphiql:
+      enabled: true
+      path: /graphiql
