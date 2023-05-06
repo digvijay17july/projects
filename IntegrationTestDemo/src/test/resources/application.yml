@@ -1,0 +1,6 @@
+#graphql:
+#  servlet:
+#    enabled: false
+#    mapping: /graphql
+#    websocket:
+#      enabled: false

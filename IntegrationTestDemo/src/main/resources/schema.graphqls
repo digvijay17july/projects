@@ -1,0 +1,12 @@
+scalar UUID
+
+type Query{
+    getUsers: [User]
+}
+
+type User {
+    id: UUID
+    userName: String
+    address: String
+    phoneNumber: Int
+}

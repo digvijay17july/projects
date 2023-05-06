@@ -1,0 +1,75 @@
+graphql:
+  servlet:
+    enabled: true
+    mapping: /graphql
+
+  graphiql:
+    mapping: /graphiql
+    endpoint:
+      graphql: /graphql
+      subscriptions: /subscriptions
+    subscriptions:
+      timeout: 30
+      reconnect: false
+    basePath: /
+    enabled: true
+    pageTitle: GraphiQL
+    cdn:
+      enabled: false
+      version: latest
+  altair:
+    enabled: true
+    mapping: /altair
+    subscriptions:
+      timeout: 30
+      reconnect: false
+    static:
+      base-path: /
+    page-title: Altair
+    cdn:
+      enabled: false
+      version: 4.0.2
+  playground:
+    mapping: /playground
+    endpoint: /graphql
+    subscriptionEndpoint: /subscriptions
+
+    enabled: true
+    pageTitle: Playground
+    cdn:
+      enabled: false
+      version: latest
+    settings:
+      editor.cursorShape: line
+      editor.fontFamily: "'Source Code Pro', 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace"
+      editor.fontSize: 14
+      editor.reuseHeaders: true
+      editor.theme: dark
+      general.betaUpdates: false
+      prettier.printWidth: 80
+      prettier.tabWidth: 2
+      prettier.useTabs: false
+      request.credentials: omit
+      schema.polling.enable: true
+      schema.polling.endpointFilter: "*localhost*"
+      schema.polling.interval: 2000
+      schema.disableComments: true
+      tracing.hideTracingResponse: true
+  voyager:
+    enabled: true
+    basePath: /
+    mapping: /voyager
+    endpoint: /graphql
+    cdn:
+      enabled: false
+      version: latest
+    pageTitle: Voyager
+    displayOptions:
+      skipRelay: true
+      skipDeprecated: true
+      rootType: Query
+      sortByAlphabet: false
+      showLeafFields: true
+      hideRoot: false
+    hideDocs: false
+    hideSettings: false
