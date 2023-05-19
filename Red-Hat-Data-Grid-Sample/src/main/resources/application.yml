@@ -1,0 +1,6 @@
+redhatdatagrid:
+  host: 127.0.0.1
+  username: myuser
+  password: changeme
+  cachename: employeeCache
+

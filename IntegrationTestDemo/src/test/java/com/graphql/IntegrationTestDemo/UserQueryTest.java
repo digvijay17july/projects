@@ -1,20 +1,15 @@
 package com.graphql.IntegrationTestDemo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.graphql.IntegrationTestDemo.models.User;
 import com.graphql.IntegrationTestDemo.service.UserService;
 import com.graphql.spring.boot.test.GraphQLResponse;
-import com.graphql.spring.boot.test.GraphQLTest;
-import com.graphql.spring.boot.test.GraphQLTestAutoConfiguration;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
-import io.micrometer.core.instrument.util.IOUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
