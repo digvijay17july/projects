@@ -1,0 +1,212 @@
+[
+    {
+        "id": "078b232106d442b9",
+        "type": "tab",
+        "label": "Redis-flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2f5baa7e.0221fe",
+        "type": "ui_tab",
+        "name": "Settings",
+        "icon": "timeline",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "81b1bdc3.9a60b8",
+        "type": "ui_group",
+        "name": "Hacks",
+        "tab": "2f5baa7e.0221fe",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f0b73a94c9860b84",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "d7ab57c5313235e7",
+        "type": "redis-config",
+        "name": "Local",
+        "options": "{}",
+        "cluster": false,
+        "optionsType": "json"
+    },
+    {
+        "id": "fc449951b3772713",
+        "type": "inject",
+        "z": "078b232106d442b9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"name\":\"nerdherd\"}",
+        "payloadType": "json",
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "f8dd2032d55bdd95"
+            ]
+        ]
+    },
+    {
+        "id": "f8dd2032d55bdd95",
+        "type": "redis-out",
+        "z": "078b232106d442b9",
+        "server": "d7ab57c5313235e7",
+        "command": "rpush",
+        "name": "",
+        "topic": "node-red",
+        "obj": true,
+        "x": 820,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fddc61120135c86b",
+        "type": "redis-in",
+        "z": "078b232106d442b9",
+        "server": "d7ab57c5313235e7",
+        "command": "blpop",
+        "name": "",
+        "topic": "node-red",
+        "obj": true,
+        "timeout": 0,
+        "x": 240,
+        "y": 360,
+        "wires": [
+            [
+                "8e83948e4d37d81e"
+            ]
+        ]
+    },
+    {
+        "id": "8e83948e4d37d81e",
+        "type": "debug",
+        "z": "078b232106d442b9",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 380,
+        "wires": []
+    }
+]
